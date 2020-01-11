@@ -147,6 +147,8 @@ class Manager:
         else:
             wait_time = min_wait_time
 
+        wait_time = max(0, wait_time)
+
         LOGGER.debug('Wait time is {}'.format(wait_time))
         return wait_time
 
