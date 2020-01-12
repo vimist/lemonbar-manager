@@ -86,13 +86,13 @@ class Manager:
         """
         early_execution = False
 
-        LOGGER.debug('Waiting {} seconds'.format(wait_time))
+        LOGGER.info('Waiting {} seconds'.format(wait_time))
 
         if len(rlist) > 0:
             readables, _, _ = select(rlist, [], [], wait_time)
-            LOGGER.debug('{} readables ready for reading'.format(len(readables)))
+            LOGGER.info('{} readables ready for reading'.format(len(readables)))
         else:
-            LOGGER.debug('There are no readables to wait for')
+            LOGGER.info('There are no readables to wait for')
             readables = []
             time.sleep(wait_time)
 
