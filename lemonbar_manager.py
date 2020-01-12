@@ -114,19 +114,25 @@ class Manager:
             if module.readable in readables:
                 LOGGER.info('Updating readable module "{}"'.format(module))
                 value = module.output()
-                module.last_update = now  # Update the last updated time
-            elif module.wait_time and (
+                module.last_update = now
+            elif not module.readable and module.wait_time and (
                     module.last_update == 0 or time_delta > module.wait_time):
                 LOGGER.info('Updating time based module "{}"'.format(module))
                 value = module.output()
-                module.last_update = now  # Update the last updated time
+                module.last_update = now
+            elif module.cache is None:
+                LOGGER.info('Using blank value for module "{}"'.format(module))
+                # If the module waits on a readable and we've not had the first
+                # read yet, we just return an empty string
+                value = ''
+                module.last_update = now
             else:
                 LOGGER.info('Using cached value for module "{}"'.format(module))
                 value = module.cache
 
             LOGGER.debug('Sending "{}" to lemonbar'.format(value))
             self._lemonbar.stdin.write(value)
-            module.cache = value  # Update the cached value
+            module.cache = value
 
         self._lemonbar.stdin.write('\n')
         self._lemonbar.stdin.flush()
