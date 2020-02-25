@@ -14,16 +14,25 @@ class Module:
 
         You should override either `self.readable` or `self.wait_time`.
 
-        If you want to wait for a file handle to become readable, set
-        `self.readable` to said file handle.
+        If you want to wait for one or more files handle to become readable, set
+        `self.readables` to a list of file handles.
 
         If you want to update regularly (time based), set `self.wait_time` to
         the interval (in seconds) to waid between updates.
         """
-        self.readable = None
+        self.readables = []
         self.wait_time = 86400  # Default, 1 day
         self.last_update = 0
         self.cache = None
+
+    def select(self):
+        """Get the readables from `self.readables` that are currently readable.
+
+        Returns:
+            readables (list): A list of readables that are currently readable.
+        """
+        readables, _, _ = select(self.readables, [], [], 0)
+        return readables
 
     def handle_event(self, event):
         """This will be called when events are fired.
@@ -111,11 +120,15 @@ class Manager:
         for module in self._modules:
             time_delta = now - module.last_update
 
-            if module.readable in readables:
+            module_readables = [
+                readable for readable in module.readables
+                if readable in readables]
+
+            if module_readables:
                 LOGGER.info('Updating readable module "{}"'.format(module))
                 value = module.output()
                 module.last_update = now
-            elif not module.readable and module.wait_time and (
+            elif not module_readables and module.wait_time and (
                     module.last_update == 0 or time_delta > module.wait_time):
                 LOGGER.info('Updating time based module "{}"'.format(module))
                 value = module.output()
@@ -171,8 +184,9 @@ class Manager:
 
         # TODO: Determine whether this should be inside the loop. For my use,
         # it's fine here, but do people want to swap out readables at will?
-        rlist = [
-            module.readable for module in self._modules if module.readable]
+        rlist = []
+        for module in self._modules:
+            rlist.extend(module.readables)
         rlist.append(event_pipe)  # Wait for events coming from lemonbar too
 
         while True:
