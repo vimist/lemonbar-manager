@@ -173,7 +173,7 @@ class BSPWM(Module):
         # stdout before updating the module.
         self._subscription_process = sp.Popen(
             ['bspc', 'subscribe'], stdout=sp.PIPE, encoding='UTF-8')
-        self.readable = self._subscription_process.stdout
+        self.readables = [self._subscription_process.stdout]
 
         self._monitor = monitor
 
@@ -215,7 +215,7 @@ class BSPWM(Module):
         return desktops
 
     def output(self):
-        event = self.readable.readline().strip()
+        event = self.readables[0].readline().strip()
 
         desktops = self._parse_event(event)
 
