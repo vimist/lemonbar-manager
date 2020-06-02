@@ -17,7 +17,7 @@ Installation
 ------------
 
 Install with:
-`pip3 install git+https://github.com/vimist/lemonbar-manager`
+`pip3 install lemonbar-manager`
 
 A Basic Bar
 -----------

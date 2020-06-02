@@ -1,0 +1,20 @@
+language: python
+python:
+  - '3.5'
+install: true
+script: true
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+      secure: >
+        V3L1ANxSDzWpSN9GxKsdjuXcQG7JrLTdVt5x8A8s7UayXpdJ0ZHFXsf2ADJUbO1mgKhfzsM
+        9asZ0tG5orvjdEBWk4JvpW8853jUKflKRCuPbhjx0ADF22KRL2vzueUXMg8/ji4/M+V8mwQ
+        rABGe2mfGynXnUZZkNA8UCAwWwdjtwUdgDgOzK4R2+alNGl5BLJfizNv9rF5MtJ0TGZj1sC
+        seEztnRVz5lXDZuXNVhsLRcSS0lZzxgsbJoSej03MGutDm0T/ntsfGy+AhWbVMueLjnnD3V
+        M5hTAglm9BfzdJb0KmOBANRmhg9DK5kRCG6BgWjFZv9O7cHgdOSmfSzag1jzqI8X00L7joW
+        ZFuGi1MXh8zu/BioSVjsae527U2k4iR3WPA1RehYTRTPDOdMe+Q0WZVUX9CJJjXDMdn2U3A
+        XsYxdm1gDHQ2eDCtUWIW4q+r6/XYlKgw5qKuMSY6IePslqyw5R++HkFF08ijwtl/1XDTmTv
+        5G7GGHZFuIJotoGylXZOqeROcyKNKLw+yGo0+Jcnz1VMIQ9sohm0bOmc3yjDT6ldcf15m4t
+        Aheb2To+7xktFtkitVTyLLAym52zBJuY+NEonf/jUwlIGTSqvpopI0vvOqOZ95n8CHswTNJ
+        eQ35qd7F60ff4IVOq0a7dqyv74DmU0+c/gH/XcKZ3Ifo=

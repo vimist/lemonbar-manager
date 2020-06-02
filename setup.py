@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='lemonbar-manager',
-    version='1.0.0',
+    version='1.0.1',
     author='Vimist',
     description='A management framework for Lemonbar',
     url='https://github.com/vimist/lemonbar-manager',
