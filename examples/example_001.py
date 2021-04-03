@@ -232,7 +232,7 @@ class BSPWM(Module):
             return
 
         desktop = event[event.rindex('_')+1:]
-        sp.Popen(['bspc', 'desktop', '--focus', desktop + '.local'])
+        sp.Popen(['bspc', 'desktop', '--focus', '{}.local'.format(desktop)])
 
 
 # Define the modules to put on the bar (in order)
